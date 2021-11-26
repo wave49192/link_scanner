@@ -29,13 +29,19 @@ def get_links(url):
     return all_list
 
 
-def is_valid_url(url: str):
+def is_valid_url(url: str) -> bool:
     """Check if the url is valid and reachable.
 
     Returns:
         True if the URL is OK, False otherwise.
     """
-    pass
+    try:
+        urllib.request.urlopen(url)
+        return True
+    except urllib.error.HTTPError:
+        if urllib.error.HTTPError.code == 403:
+            return True
+        return False
 
 
 def invalid_urls(urllist: List[str]) -> List[str]:
