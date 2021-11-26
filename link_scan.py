@@ -48,6 +48,11 @@ def invalid_urls(urllist: List[str]) -> List[str]:
     """Validate the urls in urllist and return a new list containing
     the invalid or unreachable urls.
     """
+    inavlid_url_list = []
+    for url in urllist:
+        if is_valid_url(url) == False:
+            inavlid_url_list.append(url)
+    return inavlid_url_list
 
 
 if __name__ == "__main__":
