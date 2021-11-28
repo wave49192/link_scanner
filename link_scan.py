@@ -9,7 +9,6 @@ import sys
 
 def get_links(url):
     """Find all links on page at the given url.
-
     Returns:
         a list of all unique hyperlinks on the page,
         without page fragments or query parameters.
@@ -34,17 +33,17 @@ def get_links(url):
 
 def is_valid_url(url: str) -> bool:
     """Check if the url is valid and reachable.
-
     Returns:
         True if the URL is OK, False otherwise.
     """
     try:
         urllib.request.urlopen(url)
-        return True
-    except urllib.error.HTTPError:
-        if urllib.error.HTTPError.code == 403:
+    except urllib.error.HTTPError as error:
+        if error.getcode() == 403:
             return True
         return False
+    else:
+        return True
 
 
 def invalid_urls(urllist: List[str]) -> List[str]:
@@ -55,7 +54,7 @@ def invalid_urls(urllist: List[str]) -> List[str]:
     """
     new_list = []
     for url in urllist:
-        if is_valid_url == False:
+        if is_valid_url(url) == False:
             new_list.append(url)
     return new_list
 
